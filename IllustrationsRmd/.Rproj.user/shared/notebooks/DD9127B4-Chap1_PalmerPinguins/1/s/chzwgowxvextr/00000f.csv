@@ -1,4 +1,0 @@
-"0","source('Functions_EM.R')"
-"0","y <- penguins$bill_length_mm"
-"0","y <- y[!is.na(y)]"
-"0",""

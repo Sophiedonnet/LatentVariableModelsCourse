@@ -1,6 +1,0 @@
-"0","plot(mySimpleSBM, type = ""meso"", 
-     dimLabels = list(row = 'tree', col = 'tree'),
-     plotOptions = list(edge.width = 1.2))
-"
-"2","Error in match.arg(type) : 'arg' doit être un de “data”, “expected”
-"
