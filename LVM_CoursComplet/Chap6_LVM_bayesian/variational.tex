@@ -1,0 +1,222 @@
+%!TEX root = donnet_bayesianLVM_main.tex
+\section[Deterministic approx.]{Deterministic approximation of the posterior distribution}
+
+
+\subsection{Variational Bayes}
+
+%################################################
+\begin{frame}{Approximating the posterior : variational Bayes}
+ 
+In a latent variable model, one wants to approximate
+$p(\bZ, \theta | \by)$. 
+
+\begin{itemize}
+ \item Denote $\tilde{q}(\bZ, \theta)$ the approximation of $p(\bZ, \theta | \by)$. 
+ \item We want to minimize
+ $$ KL\left(\tilde{q}(\bZ, \theta), p(\bZ, \theta | \by)\right)$$
+ where $KL$ is the Kullback Leibler divergence
+ \item \vert Essential identity \noir
+ $$ \underbrace{\log p(\by)}_{Cste} = KL\left(\tilde{q}(\bZ, \theta), p(\bZ, \theta | \by)\right) + \int \tilde{q}(\bZ, \theta) \log \frac{p(\by, \bZ, \theta)}{\tilde{q}(\bZ, \theta)} d\theta d\bZ$$
+ \item Minimizing  $KL$ is equivalent to maximizing $$J(\by,\tilde{q}(\bZ, \theta))  = \int \tilde{q}(\bZ, \theta) \log \frac{p(\by, \bZ, \theta)}{\tilde{q}(\bZ, \theta)} d\theta d\bZ$$ 
+ 
+ 
+ \end{itemize}
+\end{frame}
+
+%################################################
+\begin{frame}{Approximating the posterior : variational Bayes}
+$$J(\by,\tilde{q}(\bZ, \theta))  = \int \tilde{q}(\bZ, \theta) \log \frac{p(\by, \bZ, \theta)}{\tilde{q}(\bZ, \theta)} d\theta d\bZ$$ 
+
+ \begin{itemize}
+ \item $\log  p(\by, \bZ |  \theta) $ is explicit in a latent model
+\item \vert \ Key point  \noir  Choose $\tilde{q}(\bZ, \theta)$ such that $J(\by,\tilde{q}(\bZ, \theta))$ can be computed explicitely. 
+\end{itemize}
+ 
+\end{frame}
+
+%################################################
+
+\begin{frame}{Approximating the posterior}
+
+\begin{itemize}
+ \item Mean field approximation:  $$\tilde{q}(\bZ, \theta) = \tilde{q}(\bZ) \tilde{q}( \theta)$$ (simplification)
+ \item Alternatively maximize in $ \tilde{q}(\bZ)$ and $ \tilde{q}(\theta)$
+ \item Minimizing a functional with respect to a function $\rightarrow$ Calculus of variations
+ \item Equivalent to iterate
+ 
+ \begin{enumerate}
+ \item $\tilde{q}(\bZ) \propto \exp \left[\int \log  p(\by, \bZ |  \theta) \tilde{q}(\theta) d\theta \right]$
+ \item $\tilde{q}(\theta) \propto \pi(\theta) \exp \left[\int \log  p(\by, \bZ |  \theta) \tilde{q}(\bZ) d\bZ \right]$
+\end{enumerate}
+
+\end{itemize}  
+
+\end{frame}
+
+
+% %################################################
+% 
+% \begin{frame}{Approximating the posterior}
+% Maximise $J(\by, \tilde{q}(\bZ), \tilde{q}( \theta))$ with respect to both $\tilde{q}(Z)$ and
+% $\tilde{q}( \theta)$ that play completely symmetric roles. We deal here with
+% $q_Z$. In term the terms of Euler's problem, we have
+% $$
+% L(Z, q_Z) = q_Z(Z) \int q_\theta(\theta) \log \frac{P(Y, Z,
+%   \theta)}{q_Z(Z) q_\theta(\thetabf)} \dd \theta.
+% $$
+% The solution must satisfy
+% $$
+% \frac{\partial L}{\partial q_Z} L(x, q_Z) 
+% = \int q_\theta(\thetabf) \log P(Y, Z,
+%   \thetabf) \dd \thetabf
+% - \int q_\theta(\thetabf) \log q_\theta(\thetabf) \dd \thetabf
+% - [\log q_Z(Z) - 1 ] \int q_\theta(\thetabf) \dd \thetabf
+% = 0
+% $$
+% that is
+% \begin{equation} \label{Eq:LnQZ}
+%   \log q_Z(Z) = \int q_\theta(\thetabf) \log P(Y, Z, \thetabf)
+%   \dd \thetabf  + \text{cst},
+% \end{equation}
+% so
+% \begin{equation} \label{Eq:QZ}
+%   q_Z(Z) \propto \exp \int q_\theta(\thetabf) \log
+%   P(Y, Z, \thetabf) \dd \thetabf. 
+% \end{equation}
+% Similarly we get
+% $$
+% q_\theta(\thetabf) \propto \exp \int q_Z(Z) \log P(Y, Z, \thetabf) \dd
+% Z
+% $$
+% so the two optimal distributions $q_Z$ and $q_\theta$ depend on each other.
+% 
+%  
+%  
+% 
+% \end{frame}
+
+%################################################
+
+\subsection{Application}
+\begin{frame}{Application to the Poisson mixture}
+
+We consider the following  Poisson mixture model
+\begin{eqnarray*}
+Y_{i} | Z_i = k &\sim& \mathcal{P}(\mu_k)\\
+P(Z_i = k) &=&  \pi_k\\ 
+Z_{ik} &=& \ind_{Z_i=k}
+\end{eqnarray*}
+
+with the prior distributions: 
+
+\begin{eqnarray*}
+\mu_k &\sim& \Gamma(a_k,b_k)\\
+(\pi_1, \dots, \pi_K) &\sim& \mathcal{D}ir(e_1, \dots, e_K)
+\end{eqnarray*}
+
+  
+  
+ \end{frame} 
+
+
+%################################################
+
+\begin{frame}{About $\tilde{q}(\theta)$}
+
+{\footnotesize 
+$\tilde{q}(\bZ) = \prod_{i=1}^n \tilde{q}_i(Z_i)$
+with $\tilde{q}_i(Z_i=k) = \tau_{ik}$
+\begin{eqnarray*}
+\mathbb{E}_{\tilde{q}(Z)}\left[\log p(\by,\bZ | \theta) \right]&=& \sum_{i=1}^n \sum_{k=1}^K \tau_{ik}(-\mu_k + y_i \log \mu_k) +  \sum_{i,k} \tau_{ik} \log \pi_k + Cste\\
+&=& \sum_{k}^K \left(-\mu_k \sum_{i=1}^n  \tau_{ik} + \log \mu_k \sum_{i=1}^n  \tau_{ik} y_i \right)+ \sum_{k=1}^K \log \pi_k \sum_{i=1}^n \tau_{ik} 
+\end{eqnarray*}
+So
+\begin{eqnarray*}
+\tilde{q}(\theta) &\propto& \pi(\theta) \exp \left[\mathbb{E}_{\tilde{q}(Z)}\left[\log p(\by,\bZ | \theta) \right]\right] \\
+&\propto& \prod_{k=1}^K e^{-\mu_k \sum_{i=1}^n \tau_{ik} }\mu_k^{\sum_i y_i \tau_{ik}} \prod_{k=1}^K e^{-\mu_k b_k} \mu_k^{a_k-1} \pi_k ^{e_k-1}\\
+&\propto& \underbrace{\prod_{k=1}^K \pi_k ^{\tilde{e}_k-1}}_{\mathcal{D}ir(\tilde{e}_1, \dots,\tilde{e}_K)} \prod_{k=1}^K  \underbrace{e^{-\tilde{b}_k \mu_k}  \mu_k^{\tilde{a}_k-1}}_{\Gamma(\tilde a_k, \tilde b_k)}
+\end{eqnarray*}
+with $$\tilde{e}_k = e_k + \sum_{i=1}^n \tau_{ik},\quad \tilde{a}_k  = a_k + \sum_{i=1}^ny_{i} \tau_{ik}\quad \tilde{b}_k  = b_k + \sum_{i=1}^n   \tau_{ik} $$ 
+}
+
+\end{frame}
+%################################################
+
+  \begin{frame}{About $\tilde{q}(\bZ )$}
+  
+  {\footnotesize 
+  \begin{eqnarray*}
+  &&\mathbb{E}_{\tilde{q}(\theta)}\left[\log p(\by,\bZ | \theta) \right]=\\
+  &=& \sum_{i=1}^n \sum_{k=1}^K - Z_{ik}\mathbb{E}_{\tilde{q}(\theta)}[\mu_k] + Z_{ik} y_i \mathbb{E}_{\tilde{q}(\theta)}[\log \mu_k]  +  Z_{ik} \mathbb{E}_{\tilde{q}(\theta)}[\log \pi_k] + Cste \\ 
+  &=&  \sum_{i=1}^n \sum_{k=1}^K  Z_{ik} \underbrace{ \left[-\frac{\tilde{a}_k}{\tilde{b}_k} + y_i \left[\Psi(\tilde{a}_k) - \log(\tilde{b}_k) +  \Psi(\tilde{e}_k)- \Psi(\overline{\tilde{e}})\right] \right]}_{\rho_{ik}}
+  \end{eqnarray*}
+   where $\Psi$ is the digamma function.
+  }
+  
+  {\footnotesize 
+  \begin{eqnarray*}
+  \tilde{q}(\bZ) &\propto& \exp \left[\int \log  p(\by, \bZ |  \theta) \tilde{q}(\theta) d\theta \right]\\
+  &\propto& e^{\sum_{i=1}^n \sum_{k=1}^K Z_{ik} \rho_{ik}}\\
+  &\propto&\prod_{i=1}^n \prod_{k=1}^K (e^{\rho_{ik}})^{Z_{ik}}\\
+  \tau_{ik} = P_{\tilde{q}(\bZ)}(Z_{ik}=1) &\propto& e^{\rho_{ik}}
+  \end{eqnarray*}
+  }
+   
+  \end{frame}
+ 
+% %################################################
+% 
+\begin{frame}{Remarks on the methods}
+
+  \begin{itemize}
+   \item Algorithm (VBEM) iterates the two previously described steps.
+   \item Optimization algorithm provides an approximation of the posterior distribution. 
+    \item Quick but wrong
+    \item Under-estimate the posterior variance
+     \item If considering minimizing  
+    $$ KL\left(p(\bZ, \theta | \by),\tilde{q}(\bZ, \theta)\right)$$ \vert $\Rightarrow $ \noir Expectation Propagation \href{https://en.wikipedia.org/wiki/Expectation_propagation}{EP on wikipedia} 
+    \end{itemize}
+    \end{frame}
+%   ################################################
+   \begin{frame}{Remarks in the implementation}
+    
+    \begin{itemize}
+      \item Calculus adapted to each model. Less universal than MCMC. 
+     \item Variational bayes  \textsf{R} Packages  : LaplacesDemon by Henrik Singmann \vert $\Rightarrow$ \noir Not working on our example
+     \end{itemize}
+   
+  \end{frame}
+
+  
+  \subsection{Laplace Approximation}
+
+  
+  \begin{frame}{In a few words}
+   
+   
+   \begin{itemize}
+    \item Uses the  Laplace approximation  (Taylor extension around the MAP)
+    \item OK for Gaussian Latent Model:
+    \begin{eqnarray*}
+     Y_i | x, \theta_2 &\sim& p(\cdot | x_i, \theta_2)\\
+     x | \theta_1  &\sim& p(x | \theta_1) = \mathcal{N}(0,\Sigma)\\
+     \theta = (\theta_1,\theta_2) &\sim& p(\theta)
+    \end{eqnarray*}
+  
+  \item Many models are included
+  
+  \textbf{Exemple} : generalized linear model
+ 
+ \begin{eqnarray*}
+  Y_i &\sim& \mathcal{N}(\phi(\mu_i), \sigma^2)\quad   \mu_i = \alpha + \sum_{k=1}^K\beta_k z_{ki} \\
+  x  = (\alpha,\beta_1, \dots,\beta_K) &\sim& \mathcal{N}(0,\Sigma)\\
+  \theta_2   = \frac{1}{\sigma^2} &\sim&  \Gamma(a,b)
+  \end{eqnarray*}
+ 
+    
+\item Particularly adapted to spatial models    
+   \end{itemize}
+
+   
+  \end{frame}
+

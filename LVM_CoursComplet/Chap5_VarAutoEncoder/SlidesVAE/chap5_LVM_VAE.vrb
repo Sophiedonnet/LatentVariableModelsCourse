@@ -1,0 +1,19 @@
+\frametitle{About $d_\theta $, $g$ and $H$}
+
+$d_\theta$ neural network function as before
+
+About $g$ and $H$ : called the "encoder part"
+
+\begin{itemize}
+\item    $H(X)$ is a covariance so
+\begin{itemize}
+\item  it should be a square symmetric matrix
+\item  \textbf{Simplification}: diagonal matrix $H(\mathbf{X}) = diag(h^2(X))$ where  $h(X) \in \mathbb{R}^m$
+\end{itemize}
+\item
+  \(h(\mathbf{X}) = h_2(h_1(\mathbf{X}))\), \(g(\mathbf{X}) = g_2(g_1(\mathbf{X}))\), \(g_1 = h_1\)
+  \item $g_2$,$g_2$, $h_1$ neural networks
+\end{itemize}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{images/approxZ} \end{center}
+

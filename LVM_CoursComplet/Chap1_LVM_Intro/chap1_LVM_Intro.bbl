@@ -1,0 +1,19 @@
+\begin{thebibliography}{}
+
+\bibitem[Dempster et~al., 1977]{dempster77}
+Dempster, A.~P., Laird, N.~M., and Rubin, D.~B. (1977).
+\newblock {Maximum likelihood from incomplete data via the {EM} algorithm}.
+\newblock {\em Jr. R. Stat. Soc. B}, 39:1--38.
+
+\bibitem[Jaakkola, 2000]{Jaakkola00}
+Jaakkola, T.~S. (2000).
+\newblock {Tutorial on Variational Approximation Methods}.
+\newblock In {\em In Advanced Mean Field Methods: Theory and Practice}, pages
+  129--159. MIT Press.
+
+\bibitem[Wainwright and Jordan, 2008]{Wainwright08}
+Wainwright, M.~J. and Jordan, M.~I. (2008).
+\newblock {Graphical Models, Exponential Families, and Variational Inference}.
+\newblock {\em Found. Trends Mach. Learn.}, 1(1--2):1--305.
+
+\end{thebibliography}

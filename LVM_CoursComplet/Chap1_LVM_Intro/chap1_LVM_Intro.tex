@@ -1,0 +1,279 @@
+\documentclass[compress,10pt]{beamer}
+% version imprimable pour assistance
+%\documentclass[10pt, green, handout]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel} % le document est en français
+\usepackage{rotating,amsmath}
+\usepackage{graphicx,cancel}       % pour ins\'erer des figures
+        % pour d\'efinir plus de couleurs
+\usetheme{metropolis} 
+\usepackage{xcolor,colortbl}
+\usepackage{array}
+\usepackage{mdframed}
+
+\usepackage{lmodern}	
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,arrows}
+
+
+
+\definecolor{dgreen}{RGB}{235, 129, 27}
+\definecolor{vert}{RGB}{147,196,125}
+\definecolor{monorange}{RGB}{230,159,0}
+
+\definecolor{lgreen}{RGB}{0,140,142}
+\definecolor{mygreen}{RGB}{20,176,61}
+
+%\setbeamercolor{structure}{fg=INRA@dinst}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block title}{use = structure , fg=dgreen}
+%\setbeamercolor{normal text}{fg=black,bg=white}
+%\setbeamercolor{alerted text}{fg=lgreen}
+%\setbeamercolor{example text}{fg=lgreen}
+%\setbeamercolor{structure}{fg=dgreen} %d'où ce bleu par défaut
+%\setbeamercolor{background canvas}{parent=normal text}
+
+\setbeamerfont{bibliography item}{size=\tiny}
+\setbeamerfont{bibliography entry author}{size=\tiny}
+\setbeamerfont{bibliography entry title}{size=\tiny}
+\setbeamerfont{bibliography entry location}{size=\tiny}
+\setbeamerfont{bibliography entry note}{size=\tiny}
+ \usepackage{tikz}
+
+\usetikzlibrary{calc,shapes,backgrounds,arrows,automata,shadows,positioning}
+
+
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%    \insertframenumber/\inserttotalframenumber
+%}
+%\pgfdeclareimage[height=\paperheight,width=\paperwidth]{intro}{plots/plante-insecte-ombre-COLLAGE.jpg}
+%\setbeamertemplate{background canvas}{\pgfuseimage{intro}}
+
+%\newmdenv[tikzsetting={draw=black, fill=white, fill opacity =0.7, line width= 4pt}, backgroundcolor=white, leftmargin=0, rightmargin=40,innertopmargin=4pt]{titlebox}
+
+
+\setbeamertemplate{frametitlecontinuation}{\insertcontinuationcountroman}
+
+%-------------------------------------------------------------------------------
+% Quelques options pdf
+%-------------------------------------------------------------------------------
+\hypersetup{
+pdfpagemode = FullScreen, % afficher le pdf en plein \'ecran
+pdfauthor   = {},%
+pdftitle    = {},%
+pdfsubject  = {},%
+pdfkeywords = {Science,Impact},%
+pdfcreator  = {PDFLaTeX,emacs,AucTeX},%
+pdfproducer = {INRA}%
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=dgreen,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\newcommand\Wider[2][3em]{%
+\makebox[\linewidth][c]{%
+  \begin{minipage}{\dimexpr\textwidth+#1\relax}
+  \raggedright#2
+  \end{minipage}%
+  }%
+}
+
+\AtBeginSection[]
+{  \begin{frame}
+  \frametitle{}
+  \tableofcontents[currentsection, hideothersubsections]
+  \end{frame} 
+}
+\AtBeginSubsection[]
+{  \begin{frame}
+  \frametitle{}
+  \tableofcontents[currentsubsection, currentsection, subsectionstyle=show/shaded/hide]
+  \end{frame} 
+}
+
+
+ 
+
+  
+\usepackage{subfig} 
+%variables vectorielles
+\usepackage{amsmath, setspace, amsfonts, amssymb, graphics,multirow}
+
+%\input{/home/sophie/WORK_LOCAL/ENSEIGNEMENT/ACTUEL/2023-Saclay-MathsSV/Slides_LVM_CoursComplet/tools/notations_maths.tex}
+
+\input{/home/donnet/Dropbox/WORK_DROPBOX/ENSEIGNEMENT/2023-Saclay-MathsSV/LVM_CoursComplet/tools/notations_maths.tex}
+
+
+
+%\input{/home/sophie/WORK_LOCAL/ENSEIGNEMENT/ACTUEL/2023-Saclay-MathsSV/Slides_LVM_CoursComplet/tools/notations_maths.tex}
+
+
+\title{Latent variable models in biology and ecology}%titre premiere page
+\subtitle{\textbf{Chapter 1}: Introduction}
+\author{Sophie  Donnet.  \includegraphics[scale=.1]{/home/donnet/Dropbox/WORK_DROPBOX/ENSEIGNEMENT/2023-Saclay-MathsSV/LVM_CoursComplet/tools/logo/Logo-INRAE.jpg}
+}
+\date{ \textbf{Master 2 MathSV}. \today}
+
+
+
+ 
+
+%------------------------------------------------------------------ 
+
+\begin{document}
+%-------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage
+
+\vspace{-3cm}
+\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}c}
+\includegraphics[scale=.2]{/home/donnet/Dropbox/WORK_DROPBOX/ENSEIGNEMENT/2023-Saclay-MathsSV/LVM_CoursComplet/tools/logo/UPS.png}&
+\includegraphics[scale=.08]{/home/donnet/Dropbox/WORK_DROPBOX/ENSEIGNEMENT/2023-Saclay-MathsSV/LVM_CoursComplet/tools/logo/Agroparistech.png}
+\end{tabular*}
+\end{frame}
+
+
+
+%============================================
+\begin{frame}
+%============================================
+\begin{itemize}
+ \item Classical statistical  models are quite limited in practice
+ 
+ $$ Y_i \sim \mathcal{F}_{\theta}(\cdot)$$
+  \item Purpose of statistical modeling is often to retrieve some hidden process that is at work
+behind what is observed. 
+\item \textbf{Purpose of this lecture}: present a series of statistical models involving hidden (also called  \textcolor{dgreen}{latent})  variables with application to biology and ecology.
+\end{itemize}
+
+\end{frame}
+ 
+%============================================
+\begin{frame}
+%============================================
+ 
+\begin{itemize}
+ \item \textbf{\color{dgreen} Here}: strong focus on cases where the  hidden process   refers to some unobserved classification
+ \item \textbf{Thus} the hidden process is supposed
+to have a \textcolor{dgreen}{discrete state-space}
+\item \textbf{But}: most of the techniques presented hereafter can be generalized
+to continuous state-space models.
+\end{itemize}
+Such models are part of so-called \textbf{\color{dgreen}{incomplete data models}}.
+\end{frame}
+
+%============================================
+\begin{frame}{Inference}
+%============================================
+ \begin{itemize}
+ \item Estimation of the parameters, classification of the observations, estimation of the number of clusters 
+  \item Inference  requires some specific developments
+  \item Presented techniques : variations
+around the \textbf{expectation-maximization} (EM) algorithm  \cite{dempster77}
+\item Variational versions:  see \cite{Jaakkola00} for an
+introduction or \cite{Wainwright08} for a very complete review
+ \end{itemize}
+ 
+\end{frame}
+
+%============================================
+\begin{frame}{Critical step}
+ 
+ \begin{itemize}
+  \item Determination of the \textbf{conditional distribution
+of the hidden variables $\bZ$ given the observed ones $\bZ$}
+$$p(\bZ | \bY)$$
+\item Or at least the calculation of some of its moments.
+\item Organization of these course is based on this point. 
+
+\begin{itemize}
+\item  The calculation  is
+straightforward 
+
+\begin{center}
+\textbf{\color{dgreen}  Mixture models}
+\end{center}
+\item  The calculation is not straightforward but still possible. 
+\begin{center}
+\textbf{\color{dgreen} Hidden Markov models}
+\end{center}
+ 
+\item The  calculation is not possible and approximations are needed.  
+
+\begin{center}
+\textbf{\color{dgreen}  Stochastic Block models}
+\end{center}
+
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%======================================
+\begin{frame}{Organization}
+ \begin{description}
+  \item[\textbf{\color{dgreen} Chapter 2}] Mixture models and EM algorithm: 
+  \item[\textbf{\color{dgreen} Chapter 3}] Hidden Markov models
+  \item[\textbf{\color{dgreen} Chapter 4}] Stochastic block models and variational EM
+  \item[\textbf{\color{dgreen} Chapter 5}] Bayesian inference in latent variable models
+ \end{description}
+\end{frame}
+ %======================================
+\begin{frame}{
+Dates (séance de 3h00)} 
+
+Campus Agro Palaiseau Saclay,   Salle Pal-C2.2.47 
+
+
+\begin{itemize}
+\item 17/01/2024
+\item 24/01/2024 
+\item (Pas cours le 31)  
+\item 07/02/2024 
+\item 14/02/2024
+\item 28/02/2024
+\item  06/03/2024
+ 
+\end{itemize}
+
+ 
+ 
+ 
+ 
+\end{frame}
+
+
+%======================================
+\begin{frame}{Evaluation}
+ 
+ 
+ Examen écrit de 3h le 20/03/2023 (sans documents)
+ 
+ 
+\end{frame}
+
+
+
+
+
+%============================================
+\begin{frame}{References}
+\bibliographystyle{apalike}
+ \bibliography{/home/donnet/Dropbox/WORK_DROPBOX/ENSEIGNEMENT/2023-Saclay-MathsSV/LVM_CoursComplet/tools/biblioLVM.bib}
+\end{frame}
+  
+\end{document}

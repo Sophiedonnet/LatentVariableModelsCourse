@@ -1,0 +1,40 @@
+\begin{thebibliography}{}
+
+\bibitem[Biernacki et~al., 2000]{biernacki2000}
+Biernacki, C., Celeux, G., and Govaert, G. (2000).
+\newblock {Assessing a mixture model for clustering with the integrated
+  completed likelihood}.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  22(7):719--725.
+
+\bibitem[Conners et~al., 2021]{Conners2021}
+Conners, M.~G., Michelot, T., Heywood, E.~I., Orben, R.~A., Phillips, R.~A.,
+  Vyssotski, A.~L., Shaffer, S.~A., and Thorne, L.~H. (2021).
+\newblock {Hidden Markov models identify major movement modes in accelerometer
+  and magnetometer data from four albatross species}.
+\newblock {\em Movement Ecology}, 9(1):7.
+
+\bibitem[Ghahramani and Hinton, 1996]{GhH96}
+Ghahramani, Z. and Hinton, G.~E. (1996).
+\newblock Parameter estimation for linear dynamical systems.
+
+\bibitem[McClintock and Michelot, 2018]{McClintock2018}
+McClintock, B.~T. and Michelot, T. (2018).
+\newblock momentuhmm: R package for generalized hidden markov models of animal
+  movement.
+\newblock {\em Methods in Ecology and Evolution}, 9(6):1518--1530.
+
+\bibitem[Ngô et~al., 2019]{Ngo2019}
+Ngô, M.~C., Heide-Jørgensen, M.~P., and Ditlevsen, S. (2019).
+\newblock Understanding narwhal diving behaviour using hidden markov models
+  with dependent state distributions and long range dependence.
+\newblock {\em PLOS Computational Biology}, 15(3):1--21.
+
+\bibitem[Tracey et~al., 2014]{Tracey2014}
+Tracey, J.~A., Sheppard, J., Zhu, J., Wei, F., Swaisgood, R.~R., and Fisher,
+  R.~N. (2014).
+\newblock Movement-based estimation and visualization of space use in 3d for
+  wildlife ecology and conservation.
+\newblock {\em PLOS ONE}, 9(7):1--15.
+
+\end{thebibliography}

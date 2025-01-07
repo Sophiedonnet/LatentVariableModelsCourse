@@ -1,0 +1,6 @@
+"0",""
+"0","library(palmerpenguins)"
+"0",""
+"0","gg <- ggplot(penguins,aes(x=bill_length_mm,y = after_stat(density))) "
+"0","gg <- gg + geom_histogram(color = ""white"",fill=""cyan4"")"
+"0","gg"

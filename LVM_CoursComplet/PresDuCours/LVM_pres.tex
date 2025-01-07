@@ -1,0 +1,283 @@
+\documentclass[compress,10pt]{beamer}
+% version imprimable pour assistance
+%\documentclass[10pt, green, handout]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel} % le document est en français
+\usepackage{rotating,amsmath}
+\usepackage{graphicx,cancel}       % pour ins\'erer des figures
+        % pour d\'efinir plus de couleurs
+\usetheme{metropolis} 
+\usepackage{xcolor,colortbl}
+\usepackage{array}
+\usepackage{mdframed}
+
+\usepackage{lmodern}	
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,arrows}
+
+
+
+\definecolor{dgreen}{RGB}{235, 129, 27}
+\definecolor{vert}{RGB}{147,196,125}
+\definecolor{monorange}{RGB}{230,159,0}
+
+\definecolor{lgreen}{RGB}{0,140,142}
+\definecolor{mygreen}{RGB}{20,176,61}
+
+%\setbeamercolor{structure}{fg=INRA@dinst}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block title}{use = structure , fg=dgreen}
+%\setbeamercolor{normal text}{fg=black,bg=white}
+%\setbeamercolor{alerted text}{fg=lgreen}
+%\setbeamercolor{example text}{fg=lgreen}
+%\setbeamercolor{structure}{fg=dgreen} %d'où ce bleu par défaut
+%\setbeamercolor{background canvas}{parent=normal text}
+
+\setbeamerfont{bibliography item}{size=\tiny}
+\setbeamerfont{bibliography entry author}{size=\tiny}
+\setbeamerfont{bibliography entry title}{size=\tiny}
+\setbeamerfont{bibliography entry location}{size=\tiny}
+\setbeamerfont{bibliography entry note}{size=\tiny}
+ \usepackage{tikz}
+
+\usetikzlibrary{calc,shapes,backgrounds,arrows,automata,shadows,positioning}
+
+
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%    \insertframenumber/\inserttotalframenumber
+%}
+%\pgfdeclareimage[height=\paperheight,width=\paperwidth]{intro}{plots/plante-insecte-ombre-COLLAGE.jpg}
+%\setbeamertemplate{background canvas}{\pgfuseimage{intro}}
+
+%\newmdenv[tikzsetting={draw=black, fill=white, fill opacity =0.7, line width= 4pt}, backgroundcolor=white, leftmargin=0, rightmargin=40,innertopmargin=4pt]{titlebox}
+
+
+\setbeamertemplate{frametitlecontinuation}{\insertcontinuationcountroman}
+
+%-------------------------------------------------------------------------------
+% Quelques options pdf
+%-------------------------------------------------------------------------------
+\hypersetup{
+pdfpagemode = FullScreen, % afficher le pdf en plein \'ecran
+pdfauthor   = {},%
+pdftitle    = {},%
+pdfsubject  = {},%
+pdfkeywords = {Science,Impact},%
+pdfcreator  = {PDFLaTeX,emacs,AucTeX},%
+pdfproducer = {INRA}%
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=dgreen,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\newcommand\Wider[2][3em]{%
+\makebox[\linewidth][c]{%
+  \begin{minipage}{\dimexpr\textwidth+#1\relax}
+  \raggedright#2
+  \end{minipage}%
+  }%
+}
+
+\AtBeginSection[]
+{  \begin{frame}
+  \frametitle{}
+  \tableofcontents[currentsection, hideothersubsections]
+  \end{frame} 
+}
+\AtBeginSubsection[]
+{  \begin{frame}
+  \frametitle{}
+  \tableofcontents[currentsubsection, currentsection, subsectionstyle=show/shaded/hide]
+  \end{frame} 
+}
+
+
+ 
+
+  
+\usepackage{subfig} 
+%variables vectorielles
+\usepackage{amsmath, setspace, amsfonts, amssymb, graphics,multirow}
+
+%\input{/home/sophie/WORK_LOCAL/ENSEIGNEMENT/ACTUEL/2023-Saclay-MathsSV/Slides_LVM_CoursComplet/tools/notations_maths.tex}
+
+\input{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/notations_maths}
+
+
+
+%\input{/home/sophie/WORK_LOCAL/ENSEIGNEMENT/ACTUEL/2023-Saclay-MathsSV/Slides_LVM_CoursComplet/tools/notations_maths.tex}
+
+
+\title{Latent variable models for ecology and evolution}%titre premiere page
+\subtitle{\textbf{Presentation}}
+\author{Sophie  Donnet.  \includegraphics[scale=.1]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/logo/Logo-INRAE.jpg}
+}
+\date{ \textbf{Master 2 MathSV}. \today}
+
+
+
+ 
+
+%------------------------------------------------------------------ 
+
+\begin{document}
+%-------------------------------------------------------------------------------------
+
+\begin{frame}
+\titlepage
+
+\vspace{-3cm}
+\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}c}
+\includegraphics[scale=.2]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/logo/UPS.png}&
+\includegraphics[scale=.08]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/logo/Agroparistech.png}
+\end{tabular*}
+\end{frame}
+
+
+
+%============================================
+\begin{frame}
+%============================================
+ 
+ Classical statistical  models are quite limited in practice
+ 
+ \begin{itemize}
+ \item Linear models : $Y_i = x_i^T \beta + \varepsilon_i, \epsilon \sim \mathcal{N}(0, \sigma_2 I)$
+ \item Generalized linear models : 
+ $$ \mathbb{E}[Y_i] = \phi(x_i^T \beta)  $$ 
+ \item $Y_i \sim \mathcal{F}_{\theta}(\cdot)$
+ 
+ \end{itemize}
+ \end{frame}
+ 
+%============================================
+\begin{frame}{Objectives}
+%============================================
+  \begin{itemize}
+ \item \textbf{Purpose of this lecture}: present a series of statistical models involving hidden (also called  \textcolor{dgreen}{latent})  variables used in ecology and evolution: 
+ 
+ \begin{eqnarray*}
+  Y |  Z &\sim& p_{\theta^{obs}}(Y | Z) \quad \quad \mbox{ Observed} \\
+  Z &\sim & p_{\theta^{lat}}( Z)\quad \quad \mbox{ Hidden}
+\end{eqnarray*}
+
+
+\item Estimation of the parameters 
+\end{itemize}
+
+\end{frame}
+ 
+ %============================================
+\begin{frame}{EM algorithm and extensions}
+%============================================
+
+$$\widehat{\theta} =  \arg \max_\theta \log \ell(Y; \theta)$$
+$$ \log \ell(Y; \theta) = \log \int_Z p_{\theta^{obs}}(Y | Z)p_{\theta^{lat}}( Z) dZ$$
+
+
+\begin{itemize}
+ \item Likelihood Expectation can be difficult to compute because of the integral form  
+ \item Resort to Expectation-Maximisation algorithm  \cite{dempster77} and extensions (Variational EM, Monte-Carlo EM, etc...)
+ \item Model selection criterion
+\end{itemize}
+
+
+\end{frame}
+ 
+
+%============================================
+\begin{frame}{Examples}
+ 
+
+ \begin{itemize}
+ \item \textbf{\color{dgreen} Mixture models} and EM 
+  \begin{itemize}
+  \item Gaussian mixture models: sizes of animals
+  \item Zero inflated Poisson :  abundances for biodiversity
+  \end{itemize}
+\item \textbf{\color{dgreen} Hidden Markov models} and EM
+ \begin{itemize}
+  \item Trajectories of animals (movement ecology)
+  \item Gaussian models for traits evolution 
+  \end{itemize}
+\item \textbf{\color{dgreen}  Stochastic Block models} and VEM 
+   \begin{itemize}
+  \item Parasitism network , pollination networks 
+  \item Gaussian models for traits evolution
+\end{itemize}
+
+\item \textbf{\color{dgreen} Poisson log-normal} and VEM 
+   \begin{itemize}
+  \item Dependent couting data : abundances of sereral interdependent species
+ \end{itemize}
+
+ 
+
+ \item \textbf{\color{dgreen} Variational auto-encoder} and VEM 
+   \begin{itemize}
+  \item Deep learning  \end{itemize}
+
+\end{itemize}
+ 
+
+\end{frame}
+
+
+ 
+ %======================================
+\begin{frame}{
+Dates (séance de 3h00)} 
+
+14:00 - 17:00. Campus Agro Palaiseau,   salle Pal-C2.1.33
+
+
+\begin{itemize}
+\item 08/01/2025
+\item 15/01/2025 
+\item 22/01/2025 
+ \item 29/01/2025 
+\item 12/02/2025
+\item 19/02/2025
+ \item 05/03/2025
+ \item 12/03/2025 (A confirmer)
+\end{itemize}
+
+ 
+ 
+ 
+ 
+\end{frame}
+
+
+%======================================
+\begin{frame}{Evaluation}
+ 
+ 
+ Examen écrit de 3h le 19/03/2025 (sans documents)
+ 
+ 
+\end{frame}
+
+
+
+
+
+%============================================
+\begin{frame}{References}
+\bibliographystyle{apalike}
+ \bibliography{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/biblioLVM.bib}
+\end{frame}
+  
+\end{document}

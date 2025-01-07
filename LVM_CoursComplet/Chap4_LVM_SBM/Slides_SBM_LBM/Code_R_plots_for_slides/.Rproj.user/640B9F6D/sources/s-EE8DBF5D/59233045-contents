@@ -1,0 +1,55 @@
+setwd("~/Dropbox/Multiplex/Ecologie/Exposes/2017-06-Inecol-Xalapa/Code_R_plots")
+
+library(igraph)
+
+#------- SBM non dirigé------------------------------------------
+n=4
+X=matrix(rbinom(n^2,1,.2),nrow=n,ncol=n)
+diag(X)=0
+X[lower.tri(X)]=X[upper.tri(X)]
+isSymmetric(X)
+X[1,2]=1
+X[2,1]=1
+
+library(xtable)
+xtable(X,digits = 0)
+
+G=graph_from_adjacency_matrix(X,mode="undirected")
+plot(G)
+
+pdf("graphe_adj.pdf")
+plot(G)
+dev.off()
+
+#------- SBM dirigé------------------------------------------
+n=4
+X=matrix(rbinom(n^2,1,.2),nrow=n,ncol=n)
+diag(X)=0
+
+library(xtable)
+xtable(X,digits = 0)
+
+G=graph_from_adjacency_matrix(X,mode="directed")
+plot(G)
+
+pdf("graphe_adj_directed.pdf")
+plot(G)
+dev.off()
+
+
+### LBM
+
+n=4
+m=7
+X=matrix(rbinom(n*m,1,.2),nrow=n,ncol=m)
+
+xtable(X)
+
+G=graph_from_incidence_matrix(X)
+plot(G,layout=layout_as_bipartite)
+
+pdf("graphe_bipartite.pdf")
+plot(G,layout=layout_as_bipartite)
+dev.off()
+
+
