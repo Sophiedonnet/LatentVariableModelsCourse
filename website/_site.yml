@@ -1,0 +1,32 @@
+name: "Sophie Donnet"
+output_dir: "."
+navbar:
+  logo: img/LogoINRAE-MIA.jpg
+  title: <a href="https://sophiedonnet.github.io/" class="navbar-brand">Sophie Donnet</a>
+
+  right:
+  - text : "On the web"
+    menu: 
+    - text: "Github"
+      icon: fab fa-github
+      href: https://github.com/Sophiedonnet
+    - text: "LinkedIn"
+      icon: fab fa-linkedin 
+      href: https://www.linkedin.com/in/sophiedonnet/
+    - text: "Research gate" 
+      icon: fab fa-researchgate
+      href: https://www.researchgate.net/profile/Sophie-Donnet
+    - text: "Orcid"
+      icon: fas fa-book-open
+      href: https://orcid.org/0000-0003-4370-7316
+    - text: "Hal"
+      icon:  fas fa-book-open
+      href: https://hal.inrae.fr/search/index/q/*/authIdHal_s/sophie-donnet
+ 
+
+     
+      
+output:
+  html_document:
+    theme: flatly
+    highlight: haddock
