@@ -1,2 +1,2 @@
-# StatsAuSommetRochebrune
-Siteweb du workshop
+# Latent variable model Course
+
