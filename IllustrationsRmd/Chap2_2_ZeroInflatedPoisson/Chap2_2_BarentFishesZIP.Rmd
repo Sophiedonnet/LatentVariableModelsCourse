@@ -163,6 +163,8 @@ regZIP$tau <- regZIP$tau[, 2]
 
 ## 3. Results 
 
+### 3.a Parameter estimates
+
 We now compare the estimates with the 3 models (ZIP, Logistic and Poisson)
 
 ```{r compar estim}
@@ -175,29 +177,19 @@ regCoef[3,] <- round(as.vector(c(regZIP$theta$alpha, regZIP$theta$beta)),3)
 kable(regCoef)
 ```
 
+This table  gives the MLE of the regression coefficients for the Poisson regression , the logistic regression  and the ZIP regression  models. We observe that the regression coefficients for both the presence probability ($\alpha$) and the abundance ($\beta$) are different when dealing with both aspect separately (i.e logistic regression or Poisson regression) or jointly (ZIP regression). 
+
+As the covariates have been centered, one may focus on the intercepts, which control the presence probability and the abundance, respectively, in a 'mean' site. 
+The ZIP regression yields a higher mean presence probability than the logistic, because it accounts for the fact that the species can be present, when it is actually not observed. 
+
+As for the Poisson part (which deals with the mean abundance), the Poisson regression yields a smaller mean abundance, as it needs to accommodate for the numerous zeros in the data set, whereas the abundance part of the ZIP regression only deals with case where the species is actually present.
 
 
-```{r Model comparison}
-logLik(regL)
-logL <- c(logLik(regP), regZIP$logL)
-df <- c(p, 2*p)
-aic <- logL - df
-bic <- logL - 0.5*df*log(n)
-compModel <- cbind(df, round(logL, 1), round(bic, 1))
-rownames(compModel) <- c('Poisson', 'ZIP')
-colnames(compModel) <- c('nb parms', 'logL', 'BIC')
-``̀
+### 3.b Presence probability. 
+We first plot the estimated probability $\widehat{\pi}_i^{ZIP}$ of presence in each station for Example \ref{ex:ZIPcodBarents}, as a function of the linear predictor $x_i^\top \widehat{\alpha}^{ZIP}$. The blue crosses indicate the probability of presence according to the logistic regression $\pi_i^{logistic}$: we see that the two models yield similar probabilities. Still, the binary part of the ZIP model (encoded in $\pi_i^{ZIP}$) does not contain all information, regarding the prediction of the actual presence of the species in a given site: the abundance part must also be accounted for.
 
-
-
-
-
-
-```{r } 
-################################################################################
-# Probability of presence
+```{r pred }
 xGrid <- seq(-4, 4, by=.001)
-# Logistic regression
 orderRegL <- order(regL$linPred)
 plot(regL$linPred, Presence, xlab='Logistic regression', ylab='presence probability',
      pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5, col=2-Presence); 
@@ -212,51 +204,45 @@ orderZIP0 <- order(regZIP$linPredPresence[which(!Presence)])
 plot(regZIP$linPredPresence, Presence, xlab='ZIP regression', ylab='presence probability',
      pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5, col=2-Presence); 
 lines(xGrid, plogis(xGrid), lwd=2); 
-points(regZIP$linPredPresence[orderZIP], regL$fitted.values[orderZIP], pch='+', col=4, cex=1.5); 
+points(regZIP$linPredPresence[orderZIP],regL$fitted.values[orderZIP], pch='+', col=4, cex=1.5) 
 
-
-
-# Comparison 
+# comparison 
 plot(regZIP$tau, regL$fitted.values, 
      xlab='ZIP regression',  ylab='Logistic regression', 
      pch=20, col=1+(Abundance==0), cex=1.5, cex.axis=1.5, cex.lab=1.5)
 abline(v=.5, h=.5, col=4, lty=2, lwd=2)
 
-# plot(regZIP$pi, regZIP$tau, 
-#      xlab=expression(pi),  
-#      ylab=expression(tau), 
-#      pch=20, col=1+(Abundance==0), cex=1.5, cex.axis=1.5, cex.lab=1.5)
-# abline(0, 1, col=8)
-# abline(v=.5, h=.5, col=4, lty=2, lwd=2)
-# table(regZIP$tau>.5, Presence)
-# table(regZIP$pi>.5, Presence)
-# table(regL$fitted.values>.5, Presence)
+``` 
 
-################################################################################
-# Expected abundances
-# Poisson regression
 
+### 3.c Abundance prediction.
+ 
+ We now display the fit of the Poisson regression model (left) and of the ZIP model (center): obviously, the variability of the data does not fit the expected variability under the simple Poisson assumption. The prediction intervals of the ZIP model better accounts for the additional variability due to the excess of zeros, but are much larger.
+ 
+ 
+####  Poisson regression
+```{r predic poisson regression}
 plot(1+regP$fitted.values, 1+Abundance, xlab='1 + Poisson regression', 
      pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5, log='xy'); 
 abline(0, 1, lwd=2)
 lines(1+sort(regP$fitted.values), 1+qpois(.025, sort(regP$fitted.values)), col=2, lty=2, lwd=2)
 lines(1+sort(regP$fitted.values), 1+qpois(.975, sort(regP$fitted.values)), col=2, lty=2, lwd=2)
- 
+``` 
 
-# ZIP
+
+####  ZIP regression
+
+```{r predic ZIP regression}
 orderZIP <- order(regZIP$fitted.values)
 plot(1+regZIP$fitted.values, 1+Abundance, xlab='1 + ZIP regression', 
      pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5, log='xy'); 
 abline(0, 1, lwd=2)
 lines(1+regZIP$fitted.values[orderZIP], 1+qzip(.025, regZIP$lambda, 1-regZIP$pi)[orderZIP], col=2, lty=2, lwd=2)
 lines(1+regZIP$fitted.values[orderZIP], 1+qzip(.925, regZIP$lambda, 1-regZIP$pi)[orderZIP], col=2, lty=2, lwd=2)
-if(exportFig){dev.off()}
+```
 
-if(exportFig){png(paste0(dirFig, dataName, '-Presence-Abundance-ZIP.png'))}
-plot(regZIP$pi, 1+regZIP$lambda, xlab=expression(pi[i]), ylab=expression(1+lambda[i]),
-     pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5, log='y', col=1+(Abundance==0)); 
-if(exportFig){dev.off()}
 
+```{ other predictions}
 # ZIP: Poisson part
 orderZIP <- order(regZIP$linPredAbundance)
 orderZIP <- order(regZIP$fitted.values)
@@ -274,24 +260,50 @@ points(1+regZIP$fitted.values, 1+Abundance, col=1); abline(0, 1)
 
 
 
+The predictions provided by the ZIP regression model must be carefully analysed as they combine estimates of both the presence probability $\pi_i$ of the species in site $i$, and of its expected abundance $\lambda_i$ {\sl conditional on its presence}. Because the regression parameters are different for the two parameters, a high expected abundance $\lambda_i$ may coincide with a low presence probability $\pi_i$, as shown in the right panel of Figure \ref{fig:ZIPcodBarentsFit}. This explains the apparently erratic behavior of the prediction interval displayed in the center panel of Figure \ref{fig:ZIPcodBarentsFit}. 
+
+Indeed, under the ZIP model \eqref{mod:zip}, the sites can classified in term of actual presence or absence of the species of species, using the same rule as this used to classify observations into components under a mixture model, as seen in Section \ref{sec:gmm}. This ZIP classification is based on the estimate of the conditional probability $\postprob{i}$, given in Equation \eqref{eq:ZIPtau}. The right panel of Figure \ref{fig:ZIPcodBarentsFit-presence} compares the conditional probability $\postprob{i}^{ZIP}$ resulting from the ZIP model, with the presence probability $\pi_i^{logistic}$. We observed the classification based on $\postprob{i}^{ZIP}$ is much more contrasted than this based on $\pi_i^{logistic}$, which predicts very low probabilities of presence in sites where the species has actually been observed. This difference is greatly do the the fact that the logistic regression relies on degraded data, that is the $\widetilde{Y}_i$, instead of the observed counts $Y_i$.
+
+```{r Model comparison}
+logLik(regL)
+logL <- c(logLik(regP), regZIP$logL)
+df <- c(p, 2*p)
+aic <- logL - df
+bic <- logL - 0.5*df*log(n)
+compModel <- cbind(df, round(logL, 1), round(bic, 1))
+rownames(compModel) <- c('Poisson', 'ZIP')
+colnames(compModel) <- c('nb parms', 'logL', 'BIC')
+``̀
+
+Patate 
+
+```{r truc } 
+
+
+# Logistic regression
+
+
+
+# Comparison 
+
+
+# plot(regZIP$pi, regZIP$tau, 
+#      xlab=expression(pi),  
+#      ylab=expression(tau), 
+#      pch=20, col=1+(Abundance==0), cex=1.5, cex.axis=1.5, cex.lab=1.5)
+# abline(0, 1, col=8)
+# abline(v=.5, h=.5, col=4, lty=2, lwd=2)
+# table(regZIP$tau>.5, Presence)
+# table(regZIP$pi>.5, Presence)
+# table(regL$fitted.values>.5, Presence)
 
 ################################################################################
-# # Comparison with Poisson
-# if(exportFig){png(paste0(dirFig, dataName, '-ExpectedAbundance.png'))}
-# plot(Abundance, regP$fitted.values, pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5)
-# points(Abundance, regZIP$fitted.values, pch=20, col=2)
-# abline(0, 1, lwd=2)
-# if(exportFig){dev.off()}
-# # Classification
-# if(exportFig){png(paste0(dirFig, dataName, '-PresenceProbZIP.png'))}
-# boxplot(presProbZIP ~ (Abundance > 0), ylab='Presence probability', 
-#         pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5); 
-# if(exportFig){dev.off()}
 
-################################################################################
-## Model comparison
 
- 
+
+
+
+
 
 ## Conclusions
 
