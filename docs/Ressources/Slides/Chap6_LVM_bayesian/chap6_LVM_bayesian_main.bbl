@@ -1,0 +1,26 @@
+\begin{thebibliography}{}
+
+\bibitem[Del~Moral et~al., 2006]{delmoral06}
+Del~Moral, P., Doucet, A., and Jasra, A. (2006).
+\newblock Sequential monte carlo samplers.
+\newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 68(3):411--436.
+
+\bibitem[Donnet and Robin, 2017]{donnet2017using}
+Donnet, S. and Robin, S. (2017).
+\newblock Using deterministic approximations to accelerate smc for posterior
+  sampling.
+
+\bibitem[Moran et~al., 2004]{Moran2004}
+Moran, M., Walsh, C., Lynch, A., Coen, R.~F., Coakley, D., and Lawlor, B.~A.
+  (2004).
+\newblock Syndromes of behavioural and psychological symptoms in mild
+  alzheimer's disease.
+\newblock {\em International Journal of Geriatric Psychiatry}, 19(4):359--364.
+
+\bibitem[Robert and Casella, 1999]{robert1999monte}
+Robert, C. and Casella, G. (1999).
+\newblock {\em Monte Carlo Statistical Methods}.
+\newblock Springer texts in statistics. Springer.
+
+\end{thebibliography}

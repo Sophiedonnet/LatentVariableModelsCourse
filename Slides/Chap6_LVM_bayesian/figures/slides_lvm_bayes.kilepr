@@ -1,6 +1,0 @@
-[Tool/MakeIndex/Default]
-options=%S.idx
-
-[Tools]
-MakeIndex=Default
-QuickBuild=PDFLaTeX+ViewPDF

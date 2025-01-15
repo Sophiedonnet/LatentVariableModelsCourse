@@ -1,0 +1,100 @@
+---
+title: "Zero inflated Poisson distribution"
+author: "For Master 2 Math SV"
+date: " January2024"
+output:
+  pdf_document: default
+  html_document: default
+bibliography: references.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1.  The data
+
+We study  the abundance of fish species at $n = 89$ sites in the Barents Sea (@Fossheim). The data
+are available in the file BarentsFish.csv where the first 4 columns correspond to four environmental covariates
+covariates (latitude, longitude, depth, temperature) and the next 30 columns are the abundances of 30
+species.
+
+```{r data}
+abundance <- read.csv("BarentsFish.csv", sep=";")
+View(abundance)
+```
+
+In the following, we will consider only one fish species, for example the 20th ('Se_ma = Sebastes marinus =
+Golden redfish) and we will note $1 \leq  i \leq n$.
+$$Y_i = \mbox{ abundance of golden redfish in station i}.$$
+
+   **1.** Explore the data with standard tools (means, histograms...)
+
+```{r data hist}
+library(ggplot2)
+ggplot(abundance,aes(Se_ma))+geom_histogram()
+```
+
+
+Observe an over-representation of null values. We propose to modelize this over inflation of $0$. 
+
+
+### 2.   Zero-inflated Poisson model
+
+We propose to consider the following Zero Inflation Poisson distribution (ZIP) Let $Z_i$ be a latent variable such that 
+$$Z_i \sim_{i.i.d} \mathcal{B}ern(1-\pi)$$
+Then
+
+\begin{equation}
+Y_i | Z_i \sim (1-Z_i) \delta_{\{0\}} + Z_i \mathcal{P}(\mu_i)
+\end{equation}
+
+where $\mathcal{P}$ is the Poisson distribution. 
+
+ 2.   Write the marginal distribution of $Y_i$
+ 
+ 3. Derive $\mathbb{E}[Y_i]$ and $P(Y_i=0)$
+ 
+ 4.  Write the complete log likelihood $\log p_\theta(\mathbf{Y}, \mathbf{Z})$ of the model where $\theta= (\pi,\mu)$.
+ 
+ We propose to maximize likelihood with respect to the  parameters using the EM algorithm 
+ 
+ 5.  Write the  corresponding E-step.
+ 
+ 6.  Write the  corresponding M-step.
+
+ 7.  Suggest an initial value for the parameter $\theta$.
+
+ 8.  Code the EM algorithm.
+
+
+### 3. ZIP with covariates 
+We now consider a model similar to ZIP but taking into account the environmental covariates.
+We note $x_i$ the vector comprising these covariates for the site $i$:
+$$x_i = [1, \mbox{latitude}_i, \mbox{longitude}_i, \mbox{depth}_i, \mbox{temperature}_i ].$$
+We therefore pose : $(Z_i)_{1 ,\leq i \leq n}$ independent,$(Y_i | Z_i)_{1 ,\leq i \leq n}$ independent
+and
+\begin{equation}
+\begin{array}{cclllcl}
+Z_i &\sim& \mathcal{B}\mbox{ern}(\pi_i) &   \mbox{with} & \log \left(\frac{\pi_i}{1- \pi_i}\right) &=& x_i^T \alpha\\
+Y_i | Z_i &\sim& (1-Z_i) \delta_{\{0\}} + Z_i \mathcal{P}(\mu_i)& \mbox{with} & \log \mu_i &=& x_i^T \beta
+\end{array}
+\end{equation}
+
+The vectors $\alpha$  and $\beta$ contain the regression coefficients to predict absence and abon-
+dance conditional on the presence of the species at each site.
+      
+   9. Write the full log likelihood $p_{\theta}(\mathbf{Y}, \mathbf{Z})$  of this new model as a function of the parameter $\theta = (\alpha, \beta)$.
+      
+   10. Write the E-step.
+   
+   11. Write the M-step.
+      
+   12. Propose an initial value for the parameter $\theta$.
+      
+   13. Code the EM algorithm
+
+
+### References
+

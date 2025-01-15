@@ -1,0 +1,18 @@
+\frametitle{Exercice}
+
+Let us consider the Poisson regression :
+\begin{eqnarray*}
+y_i &\sim& \mathcal{P}(\mu_i) \\
+\log \mu_i &= & x_i \beta\\
+\beta &\sim& \mathcal{N}(0, \sigma^2I_p)
+\end{eqnarray*}
+
+\begin{itemize}
+ \item Write (in R) a MCMC such that its asymptotic distribution is $p(\theta | y)$.
+ \item Tune the size of the random walk to observe changes in the behavior
+ \item See codes in \verb|BayesRegressionPoisson_MH.R|
+\end{itemize}
+
+
+
+

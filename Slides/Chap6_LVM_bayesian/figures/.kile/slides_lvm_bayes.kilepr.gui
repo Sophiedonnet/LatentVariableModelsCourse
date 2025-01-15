@@ -1,9 +1,0 @@
-[General]
-kile_livePreviewEnabled=true
-kile_livePreviewStatusUserSpecified=false
-kile_livePreviewTool=LivePreview-PDFLaTeX
-lastDocument=
-
-[item:slides_lvm_bayes.kilepr]
-open=false
-order=-1
