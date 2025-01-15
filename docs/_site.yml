@@ -4,6 +4,16 @@ navbar:
   logo: img/LogoINRAE-MIA.jpg
   title: <a href="https://sophiedonnet.github.io/" class="navbar-brand">Sophie Donnet</a>
 
+
+  left: 
+    - text: "Organisation"
+      href: index.html
+      
+    - text: "Ressources"
+      href: ressources.html 
+      
+    
+      
   right:
   - text : "On the web"
     menu: 
