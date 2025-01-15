@@ -11,7 +11,7 @@
 
 
 
-<title>Course: Latent variable models</title>
+<title>Latent variable models for ecology and biology</title>
 
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -290,27 +290,25 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Course: Latent variable models</h1>
-<h3 class="subtitle">For ecology and biology</h3>
+<h1 class="title toc-ignore">Latent variable models for ecology and
+biology</h1>
 
 </div>
 
 
-<p><br> You will find here the material I use for my <strong>Latent
-Variables Models for ecology and biology</strong> Class in <a
+<p><br> You will find here the material I use for my <strong><em>Latent
+Variables Models for ecology and biology</em></strong> class in <a
 href="https://sites.google.com/view/m2-msv/">Master 2 <em>Mathématiques
 pour les Sciences du Vivant</em></a> of <a
 href="https://www.universite-paris-saclay.fr/en/education/master/mathematics-and-applications/m2-mathematiques-pour-les-sciences-du-vivant">University
 Paris Saclay</a>.</p>
-<p><img src="img/HMM.png" alt="mpe" width = "280px" align="right">
+<p><img src="img/bee.jpeg" alt="mpe" width = "280px" align="right">
 </img></p>
 <p><br></p>
 <p><strong>Practical organization</strong></p>
 <p>In 2025, the class will take place at <strong>AgroParisTech, 22 place
 de l’Agronomie, Palaiseau</strong> in room Pal-C2.1.33, on wednesdays
 from 14:00 to 17:00</p>
-<p><img src="img/bee.jpeg" alt="mpe" width = "280px" align="right">
-</img></p>
 <ul>
 <li>08/01/2025</li>
 <li>15/01/2025</li>
@@ -322,48 +320,103 @@ from 14:00 to 17:00</p>
 </ul>
 <p><br></p>
 <p><strong>Evaluation</strong></p>
-<p>The evaluation consists in a 3 hours exam the 19th of March 2025. <a
-href="LatentVariablesModels/examen_2024.pdf">Exam of 2024</a></p>
+<p>The evaluation consists in a 3 hours exam the 19th of March 2025. We
+can find <a href="LatentVariablesModels/examen_2024.pdf">here</a> the
+exam of 2024.</p>
 <p><br></p>
 <p><strong>Ressources</strong> <br></p>
-<p>The course is based on a book that we are writing currently. Before
-the book is ready, you will find some useful slides below. Note that I
-won’t always stick to these documents and may change some stuff.</p>
-<ul>
-<li><p><strong>Chap 1</strong> : Introduction <a
-href="../Slides/Chap1_PresCours/LVM_pres.pdf"><i class="fa fa-download"></i></a></p></li>
-<li><p><strong>Chap 2</strong> : mixture models <a
-href="../Slides/Chap2_LVM_GeneralDef/chap2_LVM_Mixtures.pdf"><i class="fa fa-download"></i></a></p></li>
-<li><p><strong>ZI-Poisson TP</strong>: Data <a
-href="LatentVariablesModels/BarentsFish.csv"><i class="fa fa-download"></i></a>
-and instructions <a
-href="LatentVariablesModels/TP_ZIP.pdf"><i class="fa fa-download"></i></a></p></li>
-<li><p><strong>Chap 3</strong> : Hidden Markov Models <a
-href="LatentVariablesModels/chap3_LVM_HMM.pdf"><i class="fa fa-download"></i></a></p></li>
-<li><p><strong>Chap 4</strong> : Stochastic Block Models <a
-href="LatentVariablesModels/chap4_LVM_SBM_LBM.pdf"><i class="fa fa-download"></i></a>.
-This class will be completed by a <a
-href="LatentVariablesModels/TutorialBM.html">tutorial</a> on R.</p></li>
-<li><p><strong>Chap5</strong> : A gentle introduction to Variational
-probabilistic Autoencoder <a
-href="LatentVariablesModels/chap5_LVM_VAE.pdf"><i class="fa fa-download"></i></a>
-<img src="img/icons8-nouveau-48.png" alt="sd" width = "48px" style="display: inline-block; margin: 0" >
-</img></p></li>
-<li><p><strong>Chap 6</strong> : Bayesien inference of Latent variable
-models.</p>
-<ul>
-<li>Slides are here <a
-href="LatentVariablesModels/chap5_LVM_bayesian_main.pdf"><i class="fa fa-download"></i></a>.</li>
-<li>Some R code examples are given <a
-href="bayesian_stat.html">here</a>.<br />
-</li>
-<li><em>In particular</em>, we will study the difference between
-<em>Variational inference and MCMC</em> on the <a
-href="BayesianClassMaterial/PoissonMixtureVBversusMCMC.html">Poisson
-Mixture model</a>. The codes are <a
-href="BayesianClassMaterial/PoissonMixtureVB.zip">here</a>.</li>
-</ul></li>
-</ul>
+<p><img src="img/HMM.png" alt="mpe" width = "280px" align="right">
+</img></p>
+<p>The course is based on a book that we are writing currently with <a
+href="https://scj-robin.github.io/">Stéphane Robin</a> and <a
+href="https://papayoun.github.io/">Pierre Gloaguen</a>. Before the book
+is ready, you will find some useful slides below. Note that I won’t
+always stick to these documents and may change some stuff.</p>
+<table>
+<colgroup>
+<col width="35%" />
+<col width="22%" />
+<col width="22%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Chapitre</th>
+<th align="center">Slides</th>
+<th align="left">Illustration</th>
+<th align="center">Ressources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Chap 1</strong> : Latent variable models and
+EM</td>
+<td align="center"><a
+href="../Slides/Chap1_PresCours/LVM_pres.pdf"><i class="fa fa-download"></i></a></td>
+<td align="left"><a
+href="../IllustrationsRmd/Chap1_MixtureAdelie/Chap1_PalmerPinguins.html">Adelie
+Penguins</a></td>
+<td align="center"><a
+href="../IllustrationsRmd/Chap1_MixtureAdelie.zip">Files</a></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Chap 2</strong> : Explicit E step</td>
+<td align="center"><a
+href="../Slides/Chap2_LVM_GeneralDef/chap2_LVM_Mixtures.pdf"><i class="fa fa-download"></i></a></td>
+<td align="left"><a
+href="../IllustrationsRmd/Chap2_1_GaussianMixtureModel/Chap2_1_BohemiaVegetation.html">Bohemia
+Vegetation</a></td>
+<td align="center"><a
+href="../IllustrationsRmd/Chap2_1_GaussianMixtureModel.zip">Files</a></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center"></td>
+<td align="left"><a
+href="../IllustrationsRmd/Chap2_2_ZeroInflatedPoisson/Chap2_2_BarentFishesZIP.html">Barents
+fishes</a></td>
+<td align="center"><a
+href="../IllustrationsRmd/Chap2_2_ZeroInflatedPoisson.zip">Files</a></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Chap 3</strong> : Non explicit E step
+(HMM)</td>
+<td align="center"><a
+href="../Slides/Chap3_LVM_NonExplicitE/chap3_LVM_HMM.pdf"><i class="fa fa-download"></i></a></td>
+<td align="left">To come</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Chap 4</strong> : Approximated E step
+(Variational EM)</td>
+<td align="center"><a
+href="../Slides/Chap4_LVM_VariationalE/Slides_SBM_LBM/slides_SBM_LBM_intro/chap4_LVM_SBM_LBM.pdf"><i class="fa fa-download"></i></a></td>
+<td align="left"><a
+href="https://sophiedonnet.github.io/IntroductionToBlockModels/TP_SBM/TutorialBM.html">Parasitism
+Ecological network</a></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Chap5</strong> : A gentle introduction to
+Variational probabilistic Autoencoder</td>
+<td align="center"><a
+href="../Slides/Chap5_VarAutoEncoder/SlidesVAE/chap5_LVM_VAE.pdf"><i class="fa fa-download"></i></a></td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Chap 6</strong> : Bayesien inference of Latent
+variable models</td>
+<td align="center"><a
+href="../Slides/Chap6_LBM_Bayesian/chap6_LVM_bayesian_main.pdf"><i class="fa fa-download"></i></a></td>
+<td align="left"><a
+href="https://Sophiedonnet.github.io/BayesianClassMaterial/PoissonMixtureVBversusMCMC.html">MCMC
+versus VEM on Poisson mixture</a></td>
+<td align="center"><a
+href="https://sophiedonnet.github.io/BayesianClassMaterial/PoissonMixtureVB.zip">Files</a></td>
+</tr>
+</tbody>
+</table>
 
 
 

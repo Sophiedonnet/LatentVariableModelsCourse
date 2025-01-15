@@ -1,6 +1,6 @@
 ---
-title: "Chapter 1.  PalmerPinguins dataset"
-author: "Sophie Donnet"
+title: "Palmer Penguins dataset"
+author: "Sophie Donnet, Pierre Gloaguen, Stéphane Robin"
 date: "2025-01-07"
 bibliography: biblio.bib
 output: 
@@ -24,7 +24,7 @@ library(knitr)
 ## 1.  The Palmer penguin  dataset
 
 
-<img src="PenguinAdeliephoto.jpg" alt="Adelie Penguins" width="20%" />
+<img src="PenguinAdeliephoto.jpg" alt="Adelie Penguins" width="20%" align="center" />
 
 
  

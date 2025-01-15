@@ -1,6 +1,6 @@
 ---
-title: "Chapter 2.  Bohemia  dataset"
-author: "Sophie Donnet"
+title: "Bohemia vegetation  dataset"
+author: "Sophie Donnet, Pierre Gloaguen, Stéphane Robin"
 date: "2025-01-07"
 bibliography: biblio.bib
 output: 
@@ -13,30 +13,30 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r packages, message=FALSE, warning=FALSE}
+```{r packages, message=FALSE, warning=FALSE, echo = FALSE}
 library(ggplot2)
 library(parallel)
 library(viridis)
 library(dplyr)
 library(knitr)
 library(readr)
-
 require(abind)
 require(mixtools)
 require(parallel)
-
-
-# Librairies --------------------------------------------------------------
-
 library(tidyverse) # For data manipulation
 library(GGally) # For ggpairs function
 library(xtable) # To print teX tables
-
 ```
 
-## 1.  The Meadow vegetation data 
 
-<img src="Meadow.jpeg" alt="Meadow in Bohemia" width="20%" />
+
+<br>
+
+
+<br> 
+
+
+<img src="Meadow.jpeg" alt="Meadow in Bohemia" width="20%" align="left" />
 
 
   
@@ -45,7 +45,18 @@ We consider the   Data `data(ohrazeni)` from the R package `traitor`. This packa
 
 They study the vegetation composition in meadows of Bohemia, Czech Republic. 
 Four specific traits, namely the specific leaf area (SLA), the leaf dry matter content (LDMC), the reproductive plant height and the seed weight are measured over 58 species \footnotemark. 
- **Our objective is the identify groups of species that share similar traits**. An extract of the table corresponding to this dataset is provided here after. 
+ **Our objective is the identify groups of species that share similar traits**. 
+ 
+ To do so, we will use the **multivariate Gaussian mixture model**. 
+ 
+## 1.  The Meadow vegetation data 
+
+
+ 
+ 
+ 
+ 
+ An extract of the table corresponding to this dataset is provided here after. 
  
  
 In this dataset, we have removed the non numerical variables and the outliers (huge seed weight). 
@@ -303,6 +314,6 @@ rownames(Table_compare_cluster)=c(1:4)
 kable(Table_compare_cluster)
 ```
  
-## Conclusions
+ 
 
 ## References 
