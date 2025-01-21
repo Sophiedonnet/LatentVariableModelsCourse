@@ -1,0 +1,43 @@
+---
+title: "EM for Poisson mixture"
+author: "For Master 2 Math SV"
+date: " January 2025"
+output:
+  pdf_document: default
+  html_document: default
+bibliography: references.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+We are interested in the mixture of Poisson distributions. 
+ 
+
+Let us consider a mixture of  $3$ Poisson distributions of means $(5,10,20)$ and proportions chosen as you want. 
+
+ 
+ 
+
+
+  1. Simulate a sample of size $n=100$ from that distribution. 
+  2. Plot the histogram. 
+  3. Write a function to compute to marginal likelihood for any value of $K$
+  4. Write the EM function for any value of $K$
+  5. Propose a method to initialize the parameters $\mu$ and $\omega$ fir any $K$
+  6. Run the EM for $K=3$ and check the likelihood
+  7. Run the EM for other values of $K$. Compute the criterion you know to choose $K$. Are you able to find the $K$ you used to simulate? 
+  8. Decrease the number of observations $n$. Do you still find $K$? 
+  9. We modify the data distribution considering the Gamma Poisson
+  
+  $$ \lambda_i |Z_i = k \sim \Gamma(\rho   \mu_k,\rho) \quad \quad  Y_i | \lambda_i \sim Pois(\lambda_i)$$ 
+  
+  Plot the histogram. Compute the means by cluster and the variance. Compare with the previous data. 
+  Adjust the model with the Poisson mixture model. What about the number of classes?
+  
+
+
+
