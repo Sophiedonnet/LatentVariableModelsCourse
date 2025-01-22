@@ -1,0 +1,216 @@
+---
+title: "Mixture for genetics population"
+author: "Donnet, Gloaguen, Robin"
+date: "2025-02-19"
+bibliography: biblio.bib
+output: 
+  html_document:
+   self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r packages, message=FALSE, warning=FALSE}
+
+```
+
+## 1.  The Taita thrush dataset 
+
+Understanding the genetic diversity within a population is one of the most prominent questions in population genetics. A natural way to model this diversity is to assume the existence of ancestral populations from which the genome of each individual in the studied population is derived.
+
+
+
+<img src="Taita.jpeg" alt="Meadow in Bohemia" width="40%" />
+
+We consider the data collected by @GLS00 and further analysed by @PSD00 (data available from [Stanford site](\url{web.stanford.edu/group/pritchardlab/software/structure-data_v.2.3.1.html). 
+
+
+It consists in $p = 7$ markers recorded for $n = 155$ birds (thrushes). The markers are microsatellites (i.e. repetitions of di- or tri-nucleotides), with respectively $m_1=8$, $m_2=5$, $m_3=6$, $m_4=3$, $m_5=4$, $m_6=10$ and $m_7=8$ alleles\footnote{For the sake of clarity, the 22 alleles of the first marker were clustered into 8 categories, further considered as alleles}.   Because the birds are diploid, two alleles were recorded for each individual $1 \leq i \leq n$, as presented in Table \ref{tab:taitaThrushData}. The genotype of individual $i = 2$ for marker $j = 3$ is hence given by the un-ordered couple $y_{ij} = \{1, 6\}$. Observe that some data are missing. 
+
+  The birds were captured in 4 different locations in the south-west of Kenya: Chawia (17 individuals), Ngangao (54), Mbololo (80), and Yale (4). 
+
+
+We have preprare the data 
+
+```{r dataTaita, message=FALSE, warning=FALSE}
+load("TaitaThrush-m8-5-6-3-4-10-8.Rdata")
+```
+
+ - Tables of $155$ or $310$ rows
+ - covar :  
+
+```{r extract data, eval = TRUE, echo = FALSE}
+ggplot(Cod,aes(x=Abundance))+geom_histogram()
+kable(Cod[c(1:5,10,11,12),]) 
+n <- length(Abundance)
+
+```
+
+
+
+We renormalize the covariates.  
+```{r suite} 
+p <- 1+ncol(Covariates)
+Covariates <- as.matrix(scale(Covariates))
+Barents <- as.data.frame(cbind(Covariates, Abundance))
+names(Barents)[5] <- 'Abundance'
+Covariates <- cbind(rep(1, n), Covariates)
+colnames(Covariates)[1] <- 'Intercept'
+```
+
+
+## 2. Classical Poisson or logistic regression approaches.
+The Poisson regression model (which is special instance of generalized linear models, see Appendix  of the book) provides a natural and well established framework for such count data.
+This model states that the sites are all independent and that the mean number of observed individuals in site $i$ depends linearly on the covariates, through the log link function: 
+
+
+The model can be adapted to account for heterogeneous sampling efforts (e.g. different observation times) by adding an known site-specific offset term $o_i$ to the regression model. 
+The unknown parameter $\theta$ is only the vector of regression coefficients $\beta$, its estimation (by maximizing the likelihood) and interpretation are straightforward.
+
+```{r Poisson GLM}
+# Poisson regression model for the Abundance
+regP <- glm(Abundance ~ Latitude + Longitude + Depth + Temperature, data=Barents, family='poisson')
+summary(regP)
+regP$beta <- regP$coefficients
+```
+
+
+Alternatively, one may aim at understanding the drivers of the simple presence of the species in each site. 
+One way is to consider the binary variable  which equal to $1$ is the count is strictly positive, $0$ otherwise and to use a logistic regression model:
+```{r  Logistic}
+Barents$Presence = 1*(Barents$Abundance>0)
+regL <- glm(Presence ~  Latitude + Longitude + Depth + Temperature, data=Barents, family='binomial')
+regL$alpha <- regL$coefficients
+regL$linPred <- as.vector(Covariates%*%regL$alpha)
+logLik(regL)
+summary(regL)
+```
+
+This model also suffers limitation, because the presence of the species is not directly observed. Indeed, whenever the species is not observed ($Y_i = 0$), it is not possible to decide whether it is actually absent from the site, or simply unobserved (the two cases are sometimes referred to as 'true zero' versus 'false zero').
+
+
+
+
+
+
+## 3. ZIP model 
+
+We consider the ZIP model presented in the Class.  
+
+
+
+## 2. EM algorithm for multivariate gaussian distributions 
+
+
+### 2.a Functions  
+The useful functions are in the file `FunctionsZIPreg.R`. 
+
+
+```{r  EM functions}
+source('FunctionsZIPreg.R')
+```
+
+Have a look at the codes
+
+### 2.b Run the  EM  
+
+```{r initialisation} 
+thetaInit <- InitZIP(X=Covariates, Y=Abundance)
+em <- EMZIPreg(X=Covariates, Y=Abundance, thetaInit=thetaInit)
+```
+
+We also consider alternative methods : a direct optimization and we use the R package `pscl`
+We will compare the performances of the methods by comparing the final Log Likelihoods. 
+
+```{r Direct optim}  
+# Direct optimization
+opt <- optim(unlist(thetaInit), f=LogLikZIP, Y=Abundance, X=Covariates, control=list(fnscale=-1))
+opt$alpha <- opt$par[1:ncol(Covariates)]; opt$beta <- opt$par[-(1:ncol(Covariates))]
+opt$theta <- list(alpha=opt$alpha, beta=opt$beta)
+# Package
+```
+
+```{r pscl}
+library(pscl)
+fit <- zeroinfl(Abundance ~ -1 + Covariates, dist="poisson")
+fit$theta <- list(alpha=fit$coefficients$zero, beta=fit$coefficients$count)
+
+LL <- c(LogLikZIP(unlist(thetaInit), X=Covariates, Y=Abundance), 
+  LogLikZIP(unlist(opt$theta), X=Covariates, Y=Abundance), 
+  LogLikZIP(unlist(fit$theta), X=Covariates, Y=Abundance),
+  LogLikZIP(unlist(em$theta), X=Covariates, Y=Abundance))
+names(LL) = c('Init','Optim','pscl',"EM")
+print(LL)
+```
+
+The EM leads to a higher likelihood value. We keep the required quantities. 
+
+
+```{r estim}
+regZIP <- em
+regZIP$linPredPresence <- Covariates%*%regZIP$theta$alpha
+regZIP$linPredAbundance <- Covariates%*%regZIP$theta$beta
+regZIP$tau <- regZIP$tau[, 2]
+```
+
+
+
+## 3. Results 
+
+### 3.a Parameter estimates
+
+We now compare the estimates with the 3 models (ZIP, Logistic and Poisson)
+
+```{r compar estim}
+regCoef <- matrix(NA,3,p*2) 
+rownames(regCoef) <- c('Logistic', 'Poisson', 'ZIP')
+colnames(regCoef) <- c(names(regP$coefficients), names(regL$coefficients))
+regCoef[1,1:p] <- round(regL$alpha,3)
+regCoef[2,p+(1:p)] <- round(regP$beta,3)
+regCoef[3,] <- round(as.vector(c(regZIP$theta$alpha, regZIP$theta$beta)),3)
+kable(regCoef)
+```
+
+This table  gives the MLE of the regression coefficients for the Poisson regression , the logistic regression  and the ZIP regression  models. We observe that the regression coefficients for both the presence probability ($\alpha$) and the abundance ($\beta$) are different when dealing with both aspect separately (i.e logistic regression or Poisson regression) or jointly (ZIP regression). 
+
+As the covariates have been centered, one may focus on the intercepts, which control the presence probability and the abundance, respectively, in a 'mean' site. 
+The ZIP regression yields a higher mean presence probability than the logistic, because it accounts for the fact that the species can be present, when it is actually not observed. 
+
+As for the Poisson part (which deals with the mean abundance), the Poisson regression yields a smaller mean abundance, as it needs to accommodate for the numerous zeros in the data set, whereas the abundance part of the ZIP regression only deals with case where the species is actually present.
+
+
+### 3.b Presence probability. 
+We first plot the estimated probability $\widehat{\pi}_i^{ZIP}$ of presence in each station, as a function of the linear predictor $x_i^\top \widehat{\alpha}^{ZIP}$. The blue crosses indicate the probability of presence according to the logistic regression $\pi_i^{logistic}$: we see that the two models yield similar probabilities. Still, the binary part of the ZIP model (encoded in $\pi_i^{ZIP}$) does not contain all information, regarding the prediction of the actual presence of the species in a given site: the abundance part must also be accounted for.
+
+```{r pred }
+xGrid <- seq(-4, 4, by=.001)
+orderRegL <- order(regL$linPred)
+plot(regL$linPred, Presence, xlab='Logistic regression', ylab='presence probability',
+     pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5, col=2-Presence); 
+lines(xGrid, plogis(xGrid), col=4, lwd=2); 
+
+
+
+
+# ZIP
+orderZIP <- order(regZIP$linPredPresence)
+orderZIP0 <- order(regZIP$linPredPresence[which(!Presence)])
+plot(regZIP$linPredPresence, Presence, xlab='ZIP regression', ylab='presence probability',
+     pch=20, cex=1.5, cex.axis=1.5, cex.lab=1.5, col=2-Presence); 
+lines(xGrid, plogis(xGrid), lwd=2); 
+points(regZIP$linPredPresence[orderZIP],regL$fitted.values[orderZIP], pch='+', col=4, cex=1.5) 
+
+# comparison 
+plot(regZIP$tau, regL$fitted.values, 
+     xlab='ZIP regression',  ylab='Logistic regression', 
+     pch=20, col=1+(Abundance==0), cex=1.5, cex.axis=1.5, cex.lab=1.5)
+abline(v=.5, h=.5, col=4, lty=2, lwd=2)
+
+``` 
+
+
+
+## References 
