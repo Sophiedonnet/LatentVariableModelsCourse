@@ -34,8 +34,9 @@ The course is based on a book that we are writing currently with [Stéphane Robi
 
 | Chapitre | Slides  | Illustration  | Ressources |
   |:-------------|:-------:|:--------|:------:| 
-  | **Chap 1** : Latent variable models and EM |  [<i class="fa fa-download"></i>](./Ressources/Slides/Chap1_PresCours/LVM_pres.pdf)| [Adelie Penguins](./Ressources/IllustrationsRmd/Chap1_MixtureAdelie/Chap1_PalmerPinguins.html)| [Files](./Ressources/IllustrationsRmd/Chap1_MixtureAdelie.zip) | 
-  | **Chap 2** : Explicit E step |  [<i class="fa fa-download"></i>](./Ressources/Slides/Chap2_LVM_GeneralDef/chap2_LVM_Mixtures.pdf) | [Bohemia Vegetation](./Ressources/IllustrationsRmd/Chap2_1_GaussianMixtureModel/Chap2_1_BohemiaVegetation.html)| [Files](./Ressources/IllustrationsRmd/Chap2_1_GaussianMixtureModel.zip)| 
+  | **Presentation**|  [<i class="fa fa-download"></i>](./Ressources/Slides/Chap1_PresCours/LVM_pres_2025.pdf)| | | 
+  | **Chap 2** : Explicit E step |  [<i class="fa fa-download"></i>](./Ressources/Slides/Chap2_LVM_GeneralDef/chap2_LVM_Mixtures.pdf)| [Adelie Penguins](./Ressources/IllustrationsRmd/Chap1_MixtureAdelie/Chap1_PalmerPinguins.html)| [Files](./Ressources/IllustrationsRmd/Chap1_MixtureAdelie.zip) | 
+  |  |  | [Bohemia Vegetation](./Ressources/IllustrationsRmd/Chap2_1_GaussianMixtureModel/Chap2_1_BohemiaVegetation.html)| [Files](./Ressources/IllustrationsRmd/Chap2_1_GaussianMixtureModel.zip)| 
   | |  | [Barents fishes](./Ressources/IllustrationsRmd/Chap2_2_ZeroInflatedPoisson/Chap2_2_BarentFishesZIP.html)| [Files](./Ressources/IllustrationsRmd/Chap2_2_ZeroInflatedPoisson.zip)| 
   | |  | [Exercice on Poisson Mixture](./Ressources/Slides/TP-EM-Poisson/TP_Poisson.pdf)| [Correction]()| 
   | **Chap 3** : Non explicit E step (HMM) |  [<i class="fa fa-download"></i>](./Ressources/Slides/Chap3_LVM_NonExplicitE/chap3_LVM_HMM.pdf) | To come | 
