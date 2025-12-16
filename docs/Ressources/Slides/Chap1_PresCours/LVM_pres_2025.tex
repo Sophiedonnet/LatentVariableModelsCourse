@@ -111,9 +111,9 @@ pdfproducer = {INRA}%
 %variables vectorielles
 \usepackage{amsmath, setspace, amsfonts, amssymb, graphics,multirow}
 
-%\input{/home/sophie/WORK_LOCAL/ENSEIGNEMENT/ACTUEL/2023-Saclay-MathsSV/Slides_LVM_CoursComplet/tools/notations_maths.tex}
+\input{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/Cours_LatentVariableModel/Public/LatentVariableModelsCourse/docs/Ressources/Slides/tools/notations_maths.tex}
 
-\input{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/notations_maths}
+%\input{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/notations_maths}
 
 
 
@@ -122,7 +122,7 @@ pdfproducer = {INRA}%
 
 \title{Latent variable models for ecology and evolution}%titre premiere page
 \subtitle{\textbf{Presentation}}
-\author{Sophie  Donnet.  \includegraphics[scale=.1]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/logo/Logo-INRAE.jpg}
+\author{Sophie  Donnet.  \includegraphics[scale=.1]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/Cours_LatentVariableModel/Public/LatentVariableModelsCourse/docs/Ressources/Slides/tools/logo/Logo-INRAE.jpg}
 }
 \date{ \textbf{Master 2 MathSV}. \today}
 
@@ -140,27 +140,34 @@ pdfproducer = {INRA}%
 
 \vspace{-3cm}
 \begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}}c}
-\includegraphics[scale=.2]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/logo/UPS.png}&
-\includegraphics[scale=.08]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/logo/Agroparistech.png}
+\includegraphics[scale=.2]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/Cours_LatentVariableModel/Public/LatentVariableModelsCourse/docs/Ressources/Slides/tools/logo/UPS.png}&
+\includegraphics[scale=.08]{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/Cours_LatentVariableModel/Public/LatentVariableModelsCourse/docs/Ressources/Slides/tools/logo/Agroparistech.png}
 \end{tabular*}
 \end{frame}
 
 
+\begin{frame}{Ecological context}
+Ecology requires to handle complex phenomena and  dependencies 
+	
+	%
+\begin{minipage}[c]{.46\linewidth}
+		\centering
+	%	\emph{Observed GPS track of a Morus bassanus during 18 days in south-east Newfoundland} \\
+		\includegraphics[width = \textwidth]{gannet-trajectory-plot.png}
+	\end{minipage}
+\hfill	
+\begin{minipage}[c]{.46\linewidth}
+	%	\emph{Bipartite parasitism network between fungi and trees}
+	\centering
+	\includegraphics[width = \textwidth]{FungusTreeBipartiteNetwork.png}
+ 
+\end{minipage}
 
-%============================================
-\begin{frame}
-%============================================
+	
+\alert{Objective} Propose models that take into account these dependencies. 
  
- Classical statistical  models are quite limited in practice
- 
- \begin{itemize}
- \item Linear models : $Y_i = x_i^T \beta + \varepsilon_i, \epsilon \sim \mathcal{N}(0, \sigma_2 I)$
- \item Generalized linear models : 
- $$ \mathbb{E}[Y_i] = \phi(x_i^T \beta)  $$ 
- \item $Y_i \sim \mathcal{F}_{\theta}(\cdot)$
- 
- \end{itemize}
- \end{frame}
+	
+\end{frame}
  
 %============================================
 \begin{frame}{Objectives}
@@ -237,47 +244,48 @@ $$ \log \ell(Y; \theta) = \log \int_Z p_{\theta^{obs}}(Y | Z)p_{\theta^{lat}}( Z
 
  
  %======================================
-\begin{frame}{
-Dates (séance de 3h00)} 
+\begin{frame}{Mercredi après midi} 
 
-14:00 - 17:00. Campus Agro Palaiseau,   salle Pal-C2.1.33
+14:00 - 17:00. Campus Agro Palaiseau,  
 
 
 \begin{itemize}
-\item 08/01/2025
-\item 15/01/2025 
-\item 22/01/2025 
- \item 29/01/2025 
-\item 12/02/2025
-\item 19/02/2025
- \item 05/03/2025
- \item 12/03/2025 (A confirmer)
+\item 07/01/2026: Room C1.0.21
+\item14/01/2026: Room C1.0.21
+\item21/01/2026: Room C1.0.21
+\item04/02/2026: Room C1.0.21
+\item11/02/2026: Room C1.0.21
+\item18/02/2026: Room C1.1.27
+\item 25/02/2026: Room C1.1.27
+
+
 \end{itemize}
 
  
+  Examen écrit de 3h le 25/03/2026 (sans documents)
  
  
  
 \end{frame}
-
-
-%======================================
-\begin{frame}{Evaluation}
  
- 
- Examen écrit de 3h le 19/03/2025 (sans documents)
- 
- 
-\end{frame}
-
 
 
 
 
 %============================================
-\begin{frame}{References}
+\begin{frame}{Ressources}
+	
+\href{https://sophiedonnet.github.io/LatentVariableModelsCourse/}{https://sophiedonnet.github.io/LatentVariableModelsCourse/}
+
+Le manuel sera en ligne
+
+
+
+	
+\alert{References}
+	
 \bibliographystyle{apalike}
- \bibliography{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/biblioLVM.bib}
+ \bibliography{/home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/Cours_LatentVariableModel/Public/LatentVariableModelsCourse/docs/Ressources/Slides/tools/biblioLVM.bib}
 \end{frame}
   
 \end{document}
