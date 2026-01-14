@@ -1,4 +1,4 @@
-n = 1000
+n = 100
 omega = c(1/3,1/4,1-1/3-1/4)
 mu = c(5,10,20)
 
@@ -13,7 +13,7 @@ y = rpois(n,mu[Z])
 
 ### 2. Hitogramm
 
-hist(y,nclass=40)
+hist(y,nclass=10)
 
 
 ### 3. Write the function to compute de log likelihood
@@ -28,14 +28,17 @@ LogLikPoissonMixture <- function(y,mu,omega){
 
 ### 4.  Write the EM algorithm
  
-EM <- function(y,K,theta_init){
-  
-  LL = c()
+EM <- function(y,theta_init){
+
   K  <- length(theta_init$mu)
   mu <- theta_init$mu
   omega <- theta_init$omega
+  
+    
+  LL = c()
   diff <-  1
   iter <- 0
+  
   while (diff>10^(-6)){
     iter <- iter +1 
     #----------- E step
@@ -62,7 +65,8 @@ EM <- function(y,K,theta_init){
 
 
 ### 5  Initialisation 
-init = kmeans(y,seq(1:K))
+K=3
+init = kmeans(y,10*seq(1:K))
 theta_init <- list(mu = c(init$centers), omega=init$size/n)
 
 ### 6 run EM 

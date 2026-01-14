@@ -104,11 +104,10 @@ This model also suffers limitation, because the presence of the species is not d
 We consider the ZIP model presented in the Class.  
 
 
+ 
 
-## 2. EM algorithm for multivariate gaussian distributions 
 
-
-### 2.a Functions  
+### 3.a Functions  
 The useful functions are in the file `FunctionsZIPreg.R`. 
 
 
@@ -118,7 +117,7 @@ source('FunctionsZIPreg.R')
 
 Have a look at the codes
 
-### 2.b Run the  EM  
+### 3.b Run the  EM  
 
 ```{r initialisation} 
 thetaInit <- InitZIP(X=Covariates, Y=Abundance)

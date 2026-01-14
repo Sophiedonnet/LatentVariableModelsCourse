@@ -1,7 +1,7 @@
 ---
 title: "Zero inflated Poisson distribution"
 author: "For Master 2 Math SV"
-date: " January2024"
+date: " January 2026"
 output:
   pdf_document: default
   html_document: default
@@ -11,6 +11,7 @@ link-citations: yes
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
 ```
 
 ### 1.  The data
@@ -21,19 +22,40 @@ covariates (latitude, longitude, depth, temperature) and the next 30 columns are
 species.
 
 ```{r data}
-abundance <- read.csv("BarentsFish.csv", sep=";")
-View(abundance)
+dataCodBarents <- read.table('BarentsFish.csv', sep=';', header=TRUE)
+Covariates <- as.matrix(dataCodBarents[, (1:4)])
+Counts <- dataCodBarents[, 5:ncol(dataCodBarents)]
+j <- 21 # We focus on Species Tr_es
+Abundance <- Counts[, j]; Presence <- (Abundance>0)
+Cod_Tr_es<- as.data.frame(Covariates)
+Cod_Tr_es$Abundance <-Abundance 
+Cod_Tr_es$Presence <- Presence
+
+
+j <- 20 # We focus on Species Se_ma
+Abundance <- Counts[, j]; Presence <- (Abundance>0)
+Cod_Se_ma<- as.data.frame(Covariates)
+Cod_Se_ma$Abundance <-Abundance 
+Cod_Se_ma$Presence <- Presence
+
+
+
 ```
 
-In the following, we will consider only one fish species, for example the 20th ('Se_ma = Sebastes marinus =
-Golden redfish) and we will note $1 \leq  i \leq n$.
+In the following, we will consider only one fish species, for example the 21th ('Tr_es = Trisopterus Esmarkii = Tacaud norvégien)  or the 20th ("Se_ma"= Sebastes Marinus) and we will note $1 \leq  i \leq n$.
 $$Y_i = \mbox{ abundance of golden redfish in station i}.$$
 
-   **1.** Explore the data with standard tools (means, histograms...)
+   **1.** Explore the data with standard tools (means, histograms...) for both species
+
 
 ```{r data hist}
 library(ggplot2)
-ggplot(abundance,aes(Se_ma))+geom_histogram()
+ggplot(Cod_Se_ma,aes(x=Abundance))+geom_histogram()
+
+ggplot(Cod_Tr_es,aes(x=Abundance))+geom_histogram()
+
+
+
 ```
 
 
@@ -43,16 +65,16 @@ Observe an over-representation of null values. We propose to modelize this over 
 ### 2.   Zero-inflated Poisson model
 
 We propose to consider the following Zero Inflation Poisson distribution (ZIP) Let $Z_i$ be a latent variable such that 
-$$Z_i \sim_{i.i.d} \mathcal{B}ern(1-\pi)$$
+$$Z_i \sim_{i.i.d} \mathcal{B}ern(\pi)$$
 Then
 
 \begin{equation}
 Y_i | Z_i \sim (1-Z_i) \delta_{\{0\}} + Z_i \mathcal{P}(\mu_i)
 \end{equation}
 
-where $\mathcal{P}$ is the Poisson distribution. 
+where $\mathcal{P}$ is the Poisson distribution.  $Z_i$ represents the presence of the species. 
 
- 2.   Write the marginal distribution of $Y_i$
+ 2. Write the marginal distribution of $Y_i$
  
  3. Derive $\mathbb{E}[Y_i]$ and $P(Y_i=0)$
  
@@ -66,8 +88,11 @@ where $\mathcal{P}$ is the Poisson distribution.
 
  7.  Suggest an initial value for the parameter $\theta$.
 
- 8.  Code the EM algorithm.
-
+ 8.  Code the EM algorithm. 
+    
+      a. Test you algorithm on simulated data. Check that the likelihood increases at each iteration of the EM 
+      b. Test you algorithm on the real data. What happens?  
+      
 
 ### 3. ZIP with covariates 
 We now consider a model similar to ZIP but taking into account the environmental covariates.
@@ -89,12 +114,11 @@ dance conditional on the presence of the species at each site.
       
    10. Write the E-step.
    
-   11. Write the M-step.
+   11. Write the M-step. Is it explicit? 
       
    12. Propose an initial value for the parameter $\theta$.
       
-   13. Code the EM algorithm
-
+   
 
 ### References
 
