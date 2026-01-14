@@ -11,8 +11,9 @@ includes:
   before_body: extlogo.html
 ---
   
-  <br>
-  You will find here the material I use for my ***Latent Variables Models for ecology and biology*** class  in [Master 2  *Mathématiques pour les Sciences du Vivant*](https://sites.google.com/view/m2-msv/) of [University Paris Saclay](https://www.universite-paris-saclay.fr/en/education/master/mathematics-and-applications/m2-mathematiques-pour-les-sciences-du-vivant). 
+<br>
+
+You will find here the material I use for my ***Latent Variables Models for ecology and biology*** class  in [Master 2  *Mathématiques pour les Sciences du Vivant*](https://sites.google.com/view/m2-msv/) of [University Paris Saclay](https://www.universite-paris-saclay.fr/en/education/master/mathematics-and-applications/m2-mathematiques-pour-les-sciences-du-vivant). 
 
 <img src="img/bee.jpeg" alt="mpe" width = "280px" align="right"> </img>
   

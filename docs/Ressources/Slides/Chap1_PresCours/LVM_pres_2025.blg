@@ -1,11 +1,11 @@
-This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
-The top-level auxiliary file: LVM_pres.aux
+The top-level auxiliary file: LVM_pres_2025.aux
 The style file: apalike.bst
-Database file #1: /home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/CoursVariablesLatentes/LVM_CoursComplet/tools/biblioLVM.bib
+Database file #1: /home/donnet/WORK_ALL/ENSEIGNEMENT/2025-Saclay-MathsSV/Cours_LatentVariableModel/Public/LatentVariableModelsCourse/docs/Ressources/Slides/tools/biblioLVM.bib
 You've used 1 entry,
             1935 wiz_defined-function locations,
-            478 strings with 3929 characters,
+            478 strings with 3982 characters,
 and the built_in function-call counts, 414 in all, are:
 = -- 40
 > -- 18
