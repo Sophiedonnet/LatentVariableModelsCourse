@@ -21,15 +21,16 @@ You will find here the material I use for my ***Latent Variables Models for ecol
 
 ### Practical organization 
     
-In 2026, the class will take place at **AgroParisTech, 22 place de l'Agronomie, Palaiseau** on wednesdays from 14:00 to 17:00
+In 2026, the class will take place at **AgroParisTech, 22 place de l'Agronomie, Palaiseau** on wednesdays from **13:30 to 16:30**
 
 
 
   * 07/01/2026: Room C1.0.21
-  * 14/01/2026: Room C1.0.21
-  * 21/01/2026: Room C1.0.21
-  * 04/02/2026: Room C1.0.21 
-  * 11/02/2026: Room C1.0.21
+  * 14/01/2026: Room C1.0.21 or 23 (to confirm)
+  * 21/01/2026: No class
+  * 28/01/2026: Room C1.0.21 or 23 (to confirm)
+  * 04/02/2026: Room C1.0.21 or 23 (to confirm)
+  * 11/02/2026: Room C1.0.21 or 23 (to confirm)
   * 18/02/2026: Room C1.1.27
   * 25/02/2026: Room C1.1.27
 
