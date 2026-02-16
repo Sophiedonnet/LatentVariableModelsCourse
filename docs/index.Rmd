@@ -26,13 +26,13 @@ In 2026, the class will take place at **AgroParisTech, 22 place de l'Agronomie, 
 
 
   * 07/01/2026: Room C1.0.21
-  * 14/01/2026: Room C1.0.21 or 23 (to confirm)
+  * 14/01/2026: Room C1.0.23
   * 21/01/2026: No class
-  * 28/01/2026: Room C1.0.21 or 23 (to confirm)
-  * 04/02/2026: Room C1.0.21 or 23 (to confirm)
-  * 11/02/2026: Room C1.0.21 or 23 (to confirm)
-  * 18/02/2026: Room C1.1.27
-  * 25/02/2026: Room C1.1.27
+  * 28/01/2026: Room C1.0.23
+  * 04/02/2026: Room C1.0.23
+  * 11/02/2026: Room C1.0.23
+  * 18/02/2026: Room C1.1.12
+  * 25/02/2026: Room C1.1.12 
 
 <br>
 
